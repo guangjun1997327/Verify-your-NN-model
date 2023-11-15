@@ -1,11 +1,6 @@
 import time, os, json
-# from models.BayesNN import Bayesian_Network_torch as Bayesian_Network
-from TAGI.BayesNNactfunction import Bayesian_Network_torch as Bayesian_Network
-# from meanfield import Bayesian_Network_torch as Bayesian_Network
-# from TAGI.bp import Bayesian_Network_torch as Bayesian_Network2
-#from models.BayesNN import Bayesian_Network_torch as Bayesian_Network
-from helper_functions.aux_function import *
-from helper_functions.plots import plot_binary_classification
+# from models.yourNN import yourNN_torch as yourNN
+
 from sklearn.model_selection import train_test_split
 from numpy.random import seed
 seed(1)
@@ -33,8 +28,8 @@ def run_classification(datasets, size, pause_list, hidden_neurons, trials):
 
 
         # define layer and activation functions
-        hidden_activation = ["sigm" for i in range(len(hidden_neurons))]
-        output_activation = ["hsoftmax"]
+        hidden_activation = ["sigmoid" for i in range(len(hidden_neurons))]
+        output_activation = ["softmax"]
         activations = hidden_activation + output_activation
         layers = [input_dim] + hidden_neurons + [output_dim]
 
@@ -46,8 +41,8 @@ def run_classification(datasets, size, pause_list, hidden_neurons, trials):
             print(f"Trial {t+1}")
             X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.1, shuffle=True, random_state=1)
             # initialize model
-            model = Bayesian_Network(layers, activations, verbose=False)
-            # model1 = Bayesian_Network2(layers, activations, verbose=False)
+            model = Network(layers, activations, verbose=False)
+            # model1 = Network2(layers, activations, verbose=False)
             # start training, store results and plot after each element in pause_list
             i_last = 0
             for n,i in enumerate(pause_list):
@@ -102,8 +97,7 @@ if __name__ == "__main__":
 #         hidden_neurons = [number_of_neurons, number_of_neurons]
 #
 #         datasets = [
-#             #"dataset_moon"
-#             #, "dataset_circles"
+
 #          "dataset_MNIST"
 #             ]
 #         size = 1500
